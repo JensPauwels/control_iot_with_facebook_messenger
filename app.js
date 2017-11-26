@@ -29,6 +29,7 @@ const checkIfIncludes = function(text, arr) {
 
 const decideMessage = function(sender, input) {
   const text = input.toLowerCase();
+  io.sockets.emit('chatbot', text);
   if (checkIfIncludes(text, ['hi', 'hallo', 'goededag', 'hey'])) {
     sendText(sender, 'Welcome at my chatbot');
   } else {
@@ -42,7 +43,6 @@ app.get('/webhook/', (req, res) => {
 });
 
 app.post('/webhook/', function(req, res) {
-  console.log(req);
   const messaging_events = req.body.entry[0].messaging;
   messaging_events.forEach(event => {
     const sender = event.sender.id;
