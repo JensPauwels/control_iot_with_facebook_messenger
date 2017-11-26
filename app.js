@@ -6,6 +6,32 @@ const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
 const helperFunctions = require('./helperFunctions.js');
 
+const Connection = function (displayName,name) {
+  this.displayName = displayName;
+  this.name = name;
+  this.status = false;
+};
+
+
+let connections = [
+  new Connection('Kamer', 'the main lights'),
+  new Connection('Bureaulamp', 'the desk')
+];
+
+const update = function (obj) {
+  connections.forEach(connection => {
+    if (connection.name === obj.displayName) this.status = obj.newValue;
+  });
+};
+
+const getStatus = function () {
+  let message = '';
+  connections.forEach(connection => {
+    message += `${connection.displayName} is ${(connection.value) ? 'aan' : 'uit'}.\n`;
+  });
+  return message;
+};
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -32,6 +58,8 @@ const decideMessage = function(sender, input) {
   io.sockets.emit('chatbot', text);
   if (checkIfIncludes(text, ['hi', 'hallo', 'goededag', 'hey'])) {
     sendText(sender, 'Welcome at my chatbot');
+  } else if (checkIfIncludes(text, ['status'])) {
+    sendText(sender, getStatus());
   } else if (checkIfIncludes(text, ['doe mijn lichten aan'])) {
     sendText(sender, 'Zoals je wenst, je lichten zijn aan.');
   } else if (checkIfIncludes(text, ['doe mijn lichten uit'])) {
@@ -66,5 +94,6 @@ const echo = function (data, socket) {
 
 io.sockets.on('connection', socket => {
   socket.on('echo', data => echo(data, socket));
+  socket.on('update', data => updateState());
   socket.on('update', data => socket.broadcast.emit('update', data));
 });
