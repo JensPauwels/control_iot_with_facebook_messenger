@@ -20,7 +20,7 @@ let connections = [
 
 const update = function (obj) {
   connections.forEach(connection => {
-    if (connection.name === obj.displayName) this.status = obj.newValue;
+    if (connection.name === obj.displayName) connection.status = obj.newValue;
   });
 };
 
