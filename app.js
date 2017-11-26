@@ -66,4 +66,5 @@ const echo = function (data, socket) {
 
 io.sockets.on('connection', socket => {
   socket.on('echo', data => echo(data, socket));
+  socket.on('update', data => socket.emit('update', data));
 });
