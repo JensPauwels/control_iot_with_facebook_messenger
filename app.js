@@ -32,6 +32,14 @@ const decideMessage = function(sender, input) {
   io.sockets.emit('chatbot', text);
   if (checkIfIncludes(text, ['hi', 'hallo', 'goededag', 'hey'])) {
     sendText(sender, 'Welcome at my chatbot');
+  } else if (checkIfIncludes(text, ['doe mijn lichten aan'])) {
+    sendText(sender, 'Zoals je wenst, je lichten zijn aan.');
+  } else if (checkIfIncludes(text, ['doe mijn lichten uit'])) {
+    sendText(sender, 'Voila, je lichten zijn uit.');
+  } else if (checkIfIncludes(text, ['doe mijn bureaulamp aan'])) {
+    sendText(sender, 'Je bureaulamp is aan');
+  } else if (checkIfIncludes(text, ['doe mijn bureaulamp uit'])) {
+    sendText(sender, 'Je bureaulamp is uit');
   } else {
     sendText(sender, 'Error');
   }
