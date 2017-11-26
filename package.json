@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.16.2",
     "node-milight-promise": "^0.2.32",
+    "request": "^2.83.0",
     "socket.io": "^2.0.4"
   }
 }
