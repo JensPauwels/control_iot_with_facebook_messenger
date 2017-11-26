@@ -6,6 +6,12 @@ const server = require('http').createServer(app);
 const io = require('socket.io').listen(server);
 const helperFunctions = require('./helperFunctions.js');
 
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+app.use(bodyParser.json());
+app.use(express.static('public'));
+
 server.listen(process.env.PORT || 5000, () => console.log('listening 5000'));
 
 const sendText = function(sender, text) {
