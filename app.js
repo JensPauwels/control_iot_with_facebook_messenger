@@ -27,7 +27,7 @@ const update = function (obj) {
 const getStatus = function () {
   let message = '';
   connections.forEach(connection => {
-    message += `${connection.displayName} is ${(connection.value) ? 'aan' : 'uit'}.\n`;
+    message += `${connection.displayName} is ${connection.value}.\n`;
   });
   return message;
 };
