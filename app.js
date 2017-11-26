@@ -61,12 +61,16 @@ const decideMessage = function(sender, input) {
   } else if (checkIfIncludes(text, ['status'])) {
     sendText(sender, getStatus());
   } else if (checkIfIncludes(text, ['doe mijn lichten aan'])) {
+    update({displayName: 'the main lights', newValue: 'true'});
     sendText(sender, 'Zoals je wenst, je lichten zijn aan.');
   } else if (checkIfIncludes(text, ['doe mijn lichten uit'])) {
+    update({displayName: 'the main lights', newValue: 'false'});
     sendText(sender, 'Voila, je lichten zijn uit.');
   } else if (checkIfIncludes(text, ['doe mijn bureaulamp aan'])) {
+    update({displayName: 'the desk', newValue: 'true'});
     sendText(sender, 'Je bureaulamp is aan');
   } else if (checkIfIncludes(text, ['doe mijn bureaulamp uit'])) {
+    update({displayName: 'the desk', newValue: 'false'});
     sendText(sender, 'Je bureaulamp is uit');
   } else {
     sendText(sender, 'Error');
