@@ -9,9 +9,7 @@ const helperFunctions = require('./helperFunctions.js');
 server.listen(process.env.PORT || 5000, () => console.log('listening 5000'));
 
 const sendText = function(sender, text) {
-  const messageData = {
-    text
-  };
+  const messageData = { text };
   helperFunctions.request('messages', sender, messageData);
 };
 
@@ -40,7 +38,6 @@ app.get('/webhook/', (req, res) => {
 app.post('/webhook/', function(req, res) {
   const messaging_events = req.body.entry[0].messaging;
   messaging_events.forEach(event => {
-    console.log(event);
     const sender = event.sender.id;
     if (event.message && event.message.text) decideMessage(sender, event.message.text);
     //if (event.postback) decidePayBackMessage(sender, JSON.stringify(event.postback));
